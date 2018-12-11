@@ -1,0 +1,317 @@
+#Git
+controle de versionamento / gerenciar versoes / sistema de controle de versao / estados x diferenças 
+avançar,voltar 
+
+#GitHub
+serviço web para armazenar projetos versionados em git
+
+#repositorio local x remoto
+
+=============================================================================
+comandos git
+# git guarda informação em 3 lugares
+>>>>git config de todo o sistema
+>>>>git config do usuario
+>>>>git config do projeto
+
+
+
+------configuraçoes-----------
+
+#git config do usuario global
+#comando para config usuario e email
+
+git config --global user.name "Davi Silva"
+
+git config --global user.email "rasdavi@hotmail.com"
+
+#comando para mostrar usuario e email
+
+git config  user.name
+git config  user.email 
+
+
+#passar editor de texto padrao / por padrao usa o vim
+
+git config --global core.editor vim/nano e etc
+
+#mostar lista de config
+
+git config --listg
+
+
+------- inicializar um repositorio----------
+inicilizar no local desejado a estrutura do git
+
+# criar pasta do projeto na pasta do git
+exemplo
+mkdir git-course ou qualquer nome
+
+# inicializar um repositorio git / estando no diretorio  desejado no caso git-course
+# cria um diretorio .git na pasta escolhida  com a estrutura do git
+  obs: dir .git oculto usar comando ls -la para ver
+
+git init
+
+>>>> em seguida criar arquivo Readme.me obrigatorio com o comando
+
+vim Readme.me
+
+
+------ dicas editor vim------------
+
+#chamar editor de texto vim
+
+vim
+
+# abrir arquivo com vim
+
+vim nome_do_aquivo.alguma coisa
+
+# criar arquivo  no vim
+# digitar a chamada do vim e nome para o arquivo e depois salva-lo
+# no caso do txt .txt se nao colocar nada vai fica temporario .swp definitivo em .md
+
+vim nome_do_arquivo e depois salva-lo
+
+#apenas sair do vim
+
+:q
+
+#sair e salvar arquivo e sua modificao 
+
+:wq
+
+#habilitar modo edição
+digitar tecla "i"
+
+#sair do modo edição
+esc
+
+----------ciclo de vida dos aquivos git e seus estados status---------
+
+>>> 1 untracked/nao marcado: esta na pasta que vc inicializou o repositorio 
+    porem nao foi adicionado ao repositorio git
+
+>>> 2 unmodified/new : foi adicionado ao repositorio git inicilizado na pasta
+    porem nao foi feita nenhuma alteraçao no arquivo, ja esta no momento staged 
+    se caso quiser ja commitar e criar uma nova versao
+
+>>> 3 modified/modificado ou editado : foi editado do estado new e precisa ser 
+    adicionado novamente a area staged para ser possivel commita-lo se
+    tornar uma nova versao 
+
+>>> 4 estaged/modificado e pronto para nova versao: estado depois de modificado 
+    que fica em uma area chamada staged pronta pra ser commitad e se tornar uma
+    nova versao ou seja volta para o passo 2 unmodified/new com 
+    as modificacoes salvas
+ 
+
+
+comandos 
+
+#estado do repositorio no momento atual
+
+git status
+
+#adicionar arquivo que esta no diretorio do repositorio mais nao foi adicionado 
+ ainda ou adicionar do modificado para ficar pronto para ser commitado(staged) 
+ e criar nova versao
+ 
+git add nome_do_arquivo
+
+# commitar criar nova versao de um arquivo em staged
+  entre aspas e mensagem sobre o que foi atualizado no arquivo
+  caso queira criar outra versao abrir e modificar o mesmo e seguir o procedimento
+  do passo  modified
+  obs: cada commit tem uma hash(id da versao) padrao para identificar o commit
+  e fazer uma busca do mesmo se precisar
+
+git commit -m "Add Readme.md"
+
+
+# git commit -am "nome" esse comando commita em um arquivo modificado direto sem precisar
+  de usar o comando git add novamente
+
+git commit -am "nome"
+  
+
+
+
+
+--------------------logs----------------------
+
+#git log mostra a hash(id) do commit da versao
+ a data e nome e email do autor
+
+git log
+
+
+#git log --decorate ,para mostrar informacoes de branch
+
+git log --decorate
+
+
+
+#filtrar log por autor
+
+git log --author="davi da silva"
+
+
+#mostra em ordem alfabetica a contribuicao no respositorio de cada autor 
+ quantos commites e quais foram eles
+
+git shortlog
+
+
+
+#filtrar por quantidade de commits e autores 
+
+git shortlog -sn
+
+
+
+# mostra o grafico das versoes 
+
+git log --graph
+
+
+# mostrar o que foi alterado na versao/commit o sina "+"
+  indica o que foi adicionado ou alterado e "-" o que foi removido
+
+git show hash/id
+
+exemplo git show  d319bbfd374f8207ac6ba199d2b9ba66916f7d3c
+
+
+
+
+
+-------Visualizando o diff-----------------
+
+#git diff mostra o que foi alterado no arquivo em estado modified para verificacao
+ antes de commitar /revisar alteracao
+
+git diff
+
+# mostrar somente o nome do arquivo modificado antes de commitalo no caso de ter um lista
+  de arquivos no diretorio do repositorio
+obs: tbm somente em estado modified para staged nao vale
+
+git diff --name-only
+
+# git commit -am "nome" esse comando commita em um arquivo modificado direto sem precisar
+  de usar o comando git add novamente
+
+git commit -am "nome"
+
+
+
+
+
+
+
+----------------Desfazendo coisas---------------------
+comandos para desfazer modificacoes de versoes voltar versoes e etc
+
+
+
+# comando para desfazer alteraçao em estado modified
+
+git checkout nome_do_arquivo
+
+
+
+# comando para desfazer alteracao em estado pos modified (staged)
+  ja usado o comando git add, o comando tira o arquivo pronto para commitar
+  da area staged , nesse caso vai voltar para o modified, em seguida executar 
+  o checkout normalmente
+
+git reset HEAD nome_do_arquivo
+
+
+
+>>>comandos para desfazer alteracao depois que o arquivo ja estiver commitado 
+ em uma nova versao 
+
+ obs: sempre passando a hash/id da versao anterior a que vc que alterar
+
+git reset --soft: desfaz o commit/versao e volta o arquivo ja para o staged pronto
+    para commitar a mudanca novamente
+
+exemplo
+  == git reset --soft d319bbfd374f8207ac6ba199d2b9ba66916f7d3c
+
+git reset --mixed: desfaz o commmit/versao e volta o arquivo para o estado modified
+    para ser adicionado ao stage e commitar possivel ver as modficacoes com o comando
+    git diff ainda
+
+exemplo
+    == git reset--mixed d319bbfd374f8207ac6ba199d2b9ba66916f7d3c
+
+git reset --hard: desfaz o commmit/versao e volta o arquivo de forma completa para
+      ultima versao deletando o versao atual
+
+exemplo
+    == git reset --hard d319bbfd374f8207ac6ba199d2b9ba66916f7d3c
+
+
+-------comandos-GitHub-------------------
+
+comandos para criar chave ssh
+
+$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+This creates a new ssh key, using the provided email as a label.
+
+Generating public/private rsa key pair.
+When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location.
+
+Enter a file in which to save the key (/c/Users/you/.ssh/id_rsa):[Press enter]
+At the prompt, type a secure passphrase. For more information, see "Working with SSH key passphrases".
+Enter passphrase (empty for no passphrase): [Type a passphrase]
+Enter same passphrase again: [Type passphrase again]
+
+
+#comandos para achar a chave no terminal e colar ela no site GitHub em settings e depois SSH and GPG keys 
+ escolher um nome para o pc conectado
+
+$ cd ~/.ssh/
+
+$ ls
+id_rsa  id_rsa.pub
+
+$cat id_rsa.pub
+
+
+
+#comando para conectar respositorio local no remoto *so um exemplo melhor usar do site na hora 
+  obs: onde esta origin pode por o nome que quiser , se for criar outros para nao dar conflito
+ 
+  git remote add origin https://github.com/DavidaSilva79/git-course.git
+  
+  git push -u origin master
+
+
+
+# atualizar modificacoes feitas no repositorio local para o remoto * a questao do origin é a 
+  mesma do de cima
+
+
+  git push  origin master
+
+
+#comando para clonar repositorio do git hub
+
+ git clone + ssh ou http do repositorio e o nome da pasta que vc vai criar  exemeplo 
+ 
+ $ git clone git@github.com:DavidaSilva79/Redux.git clone
+
+
+#sobre o fork fazer depois clonar para o rep local alterar e subir obs:temp
+
+
+
+
+
+
