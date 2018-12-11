@@ -313,5 +313,52 @@ $cat id_rsa.pub
 
 
 
+----------------------branch----------------------
+
+ponteiro que aponta para o commit atual, o master e o padrao pode se criar outro para 
+nao dar conflito se mais de uma pessoa usa o mesmo ponteiro
+
+cada branch criado novo pega referencia do branch Master atual ,e cria a partir dele outros
+branchs seguindo sua propria linha independente do branch master , atualizacoes feitas no
+master nao seram vistar nesse branch criado e nem o master  vera atualizacoes do branch
+criado , para isso deve se unir branch com merge ou rebase
 
 
+#comando para criar um novo branch
+ 
+ git checkout -b nome_do_branch
+
+# comando branch mostra os branchs existentes e em "*" o branch atual
+
+ git branch
+
+# comando para navegar entre branch
+ 
+ git checkout nome_do_branch
+
+# comando para deletar um branch
+
+ git branch -D nome_do_branch
+
+
+>>> unindo branchs atravez do merge/mesclar que cria uma arvore e mantem a cronologia, porem usa um commit extra
+   
+    # comando executado do branch master para unir o branch desejado atraves do merge
+
+ git merge nome_do_branch_alvo
+
+>>> unindo branchs atraves do rebase que coloca commits do branch desejado no comeco
+    da fila do branch master , isso tudo de forma linear sem criar commit extra sem arvore
+   
+    # comando executado do branch master para unir o branch desejado atraves do merge
+
+  git rebase nome_do_branch_alvo
+
+
+
+obs: evitar o merge para nao gerar muitas arvores usar merge e caso 
+     de adicionar novas features e quer saber um historico preciso
+     
+     usar na maioria das vezes o rebase, quando estiver trabalhando e adicionado coisas
+     usar sempre no final quando for atualizar repositorio remoto "pull"
+      
