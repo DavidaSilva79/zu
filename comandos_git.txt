@@ -256,6 +256,19 @@ exemplo
     == git reset --hard d319bbfd374f8207ac6ba199d2b9ba66916f7d3c
 
 
+>>> comando para reverter arquivo ja commitado sem perder a modificacao feita
+    no caso de um erro revert o erro porem o erro continua no historico de commits
+    para trabalhar no erro e conseguir ver o erro sem discartar o mesmo
+
+# comando revert no commit alvo a ser resetado diferente dos de cima que tem que ser no anterior ao alvo
+
+ git revert hash_do_commit
+
+exemplo
+
+git revert cf3fca39de9649ef12f858f784acf5492aa74ebf
+
+
 -------comandos-GitHub-------------------
 
 comandos para criar chave ssh
@@ -361,4 +374,97 @@ obs: evitar o merge para nao gerar muitas arvores usar merge e caso
      
      usar na maioria das vezes o rebase, quando estiver trabalhando e adicionado coisas
      usar sempre no final quando for atualizar repositorio remoto "pull"
+
+
+#deletar branch remoto, no caso abaixo "new" e o nome do branch a se deletar
+
+ git push origin :new
+
       
+
+
+------------------.gitignore----------------
+um arquivo para adicionar alguns elementos do projeto particular do usuario que nao se deseja trackear/seguir 
+para repositorios remotos por que nao tem necessidade ou por questao particulares de configuracao de cada
+maquina ou privacidade com senhas e etc.
+
+obs:se criar o projeto dentro de um diretorio inicializado como repositorio git, por exemplo do java
+ele mesmo ja cria um gitignore por padrao
+
+# para criar o arquivo .gitignore basta criar um arquivo no vim com esse nome
+  e indicar os arquivos em especifico que se deseja ignorar por exemplo teste.class ou teste.zip  
+  ou usar o "*" antes para ignorar todos os arquivos com uma certa extensao como por exemplo *.class ou *.zip 
+  segue abaixo link com templates do proprio github para projetos de varios linguagens de programacao
+  assim como a documentacao do gitignore
+
+https://github.com/github/gitignore
+
+https://git-scm.com/docs/gitignore
+
+# para fazer o teste crie um arquivo txt ou algum outro sem adicionalo ao repositorio com add e olhe o git status
+  ele vai aparecer para adicionar  como untracked se vc criar um .gitignore com a extensao ou nome do arquivo ele 
+  vai sumir de arquivos untracked para adicionar
+
+
+------------------------git stash---------------------------------
+o git stash guarda uma modificao que nao foi commitada , que vc nao deseja commitala  agora em um arquivo para ser aplicada mais
+tarde assim sumindo o estado modified do arquivo por hora e mantendo seu estado antes da alteracao quando quiser modificar novamente
+
+# comando para guardar uma modificacao nao commitada de algum arquivo 
+
+git stash
+
+# comando para aplicar modificao guardada no arquivo
+ 
+git stash apply
+
+# comando para listar modificacoes guardadas no stash
+
+git stash list
+
+# comando para limpar o stash
+
+git stash clear
+
+
+----------------- criar alias de comando-----------------
+criar um atalho para abreviar um comando 
+
+#exemplo em vez de digitar git status , digita apenas git s
+
+git config --global alias.s status 
+
+
+-------------------versionando com Tags-------------------------
+cria uma anotacao no ponto do commit atual com o fechamento da versao/realease 
+ou outra informacao, pra subir no github como release ja com uma opcao de download dele
+
+# crianca da tag na frente do -a  passa a versao em numero exemplo "1.0.0"
+  e na frente do -m a informacao exemplo "nova versao"
+
+git tag -a 1.0.0 -m "nova versao"
+
+# para subir a tag para o repositorio remoto 
+
+git push origin master --tags
+
+# comando para ver as tags ja feita
+
+git tag
+
+# comando para apagar tag no repositorio local
+
+git tag -d numero_da_tag
+
+exemplo
+
+git tag -d 1.0.1
+
+# comando para apagar tag do repositorio remoto
+
+git push nome_do_repositorio_remoto :numero da tag
+
+exemplo
+
+$ git push origin :1.0.0
+
