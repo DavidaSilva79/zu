@@ -572,5 +572,4 @@ ou
 
  git log --oneline --decorate --all
 
-blablablablablabla
 
